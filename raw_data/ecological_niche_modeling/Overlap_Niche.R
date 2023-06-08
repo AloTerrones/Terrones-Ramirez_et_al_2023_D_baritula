@@ -17,9 +17,9 @@ library(factoextra)
 # Following: plantarum.ca/notebooks/ecospat
 
 # Coordinates for subspecies
-baritula <- read.csv("bases_datos/baritula.csv")
-parva <- read.csv("bases_datos/parva.csv")
-montana <- read.csv("bases_datos/montana.csv")
+baritula <- read.csv("./baritula.csv")
+parva <- read.csv("./parva.csv")
+montana <- read.csv("./montana.csv")
 
 
 # Environmental data for "M" area -accesible area-

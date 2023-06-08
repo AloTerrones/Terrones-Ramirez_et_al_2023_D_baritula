@@ -14,7 +14,6 @@ install.packages("remotes") #functions buffer_area
 install.packages("spocc") 
 install.packages("scrubr") 
 install.packages("rgdal") #functions: readOGR
-install.packages("devtools") 
 remotes::install_github("marlonecobos/ellipsenm") #functions buffer_area
 install.packages("stars")
 devtools::install_github("rsbivand/sp@evolution") 
@@ -41,7 +40,7 @@ library(terra)
 library(stars) 
 library(sp)
 library(ggplot2)
-library(RColorBrewer) #with package "corrplot" (plot correlation) 
+library(RColorBrewer) 
 library(ecospat)
 library(rnaturalearth)
 library(rnaturalearthdata)
@@ -55,10 +54,10 @@ library(tiff)
 
 # Read csv files
 
-complejo <- read.csv("bases_datos/complejo.csv")
-baritula <- read.csv("bases_datos/baritula.csv")
-parva <- read.csv("bases_datos/parva.csv")
-montana <- read.csv("bases_datos/montana.csv")
+complejo <- read.csv("./complejo.csv")
+baritula <- read.csv("./baritula.csv")
+parva <- read.csv("./parva.csv")
+montana <- read.csv("./montana.csv")
 
 
 
@@ -113,11 +112,11 @@ complejo_coordinates <- subset(complejo, select=c(longitude, latitude))
 BIOS_VALUES <- raster::extract(BIOS, complejo_coordinates)
 BIOS_VALUES <- cbind.data.frame(complejo, BIOS_VALUES)
 
-#write.csv(BIOS_VALUES_ALL, "bases_datos/bios_values_all.csv", row.names = FALSE)
+#write.csv(BIOS_VALUES_ALL, "./bios_values_all.csv", row.names = FALSE)
 
 # Eliminate records with no values 
 BIOS_VALUES <-na.omit(BIOS_VALUES)
-#write.csv(BIOS_VALUES_ALL, "bases_datos/bios_values_all.csv", row.names = FALSE)
+#write.csv(BIOS_VALUES_ALL, "./bios_values_all.csv", row.names = FALSE)
 
 
 #### Correlation and PCA analysis
@@ -240,6 +239,7 @@ legend("topleft", legend = "Intersection", bty = "n")
 par(mfrow=c(1,1))
 
 # Saving shapefile
+dir.create("./complejo.M")
 writeOGR(M_buffer, "complejo.M/", "M_buffer", driver = "ESRI Shapefile") 
 
 
@@ -321,11 +321,11 @@ writeRaster(LGM_ccsm, filename=names(LGM_ccsm), bylayer=TRUE, format="ascii")
 
 BIOS_VALUES_LIG <- raster::extract(LIG, complejo_coordinates)
 BIOS_VALUES_LIG <- cbind.data.frame(complejo, BIOS_VALUES_LIG)
-write.csv(BIOS_VALUES_LIG, "bases_datos/bios_values_LIG.csv", row.names = FALSE)
+write.csv(BIOS_VALUES_LIG, "./bios_values_LIG.csv", row.names = FALSE)
 
 BIOS_VALUES_LGM_ccsm <- raster::extract(LGM_ccsm, complejo_coordinates)
 BIOS_VALUES_LGM_ccsm <- cbind.data.frame(complejo, BIOS_VALUES_LGM_ccsm)
-write.csv(BIOS_VALUES_LGM_ccsm, "bases_datos/bios_values_LGM_ccsm.csv", row.names = FALSE)
+write.csv(BIOS_VALUES_LGM_ccsm, "./bios_values_LGM_ccsm.csv", row.names = FALSE)
 
 BIOS_VALUES_LGM_miroc <- raster::extract(LGM_miroc, complejo_coordinates)
 BIOS_VALUES_LGM_miroc <- cbind.data.frame(complejo, BIOS_VALUES_LGM_miroc)
@@ -358,12 +358,13 @@ writeRaster(bio7, filename="./bios_cut_100/bio7", format="ascii", overwrite=TRUE
 
 
 ####  After running analysis in MAXENT 
+### Results from Maxent were saved in a directory named "maxent_results"
 ####  Uploading median result from maxent
 
-complejo_maxent<-raster("./maxent_resultados/Diglossa_baritula_bios_cut_100_median.asc") 
+complejo_maxent<-raster("./maxent_results/Diglossa_baritula_bios_cut_100_median.asc") 
 plot(complejo_maxent)
 
-complejo_maxent_presente<-raster("./maxent_resultados/Diglossa_baritula_median.asc") 
+complejo_maxent_presente<-raster("./maxent_results/Diglossa_baritula_median.asc") 
 plot(complejo_maxent_presente)
 
 
@@ -411,35 +412,35 @@ points(complejo$longitude, complejo$latitude, col="red", cex=.4, pch=16)
 #### Uploading PAST MODELS 
 
 # LGM CCSM
-complejo_LGM_CCSM <- raster("./maxent_resultados/Diglossa_baritula_LGM_CCSM_median.asc")
+complejo_LGM_CCSM <- raster("./maxent_results/Diglossa_baritula_LGM_CCSM_median.asc")
 plot(complejo_LGM_CCSM)
 rc_LGM_CCSM<- reclassify(complejo_LGM_CCSM, rclmat)
 par(bg = 'gray') 
 plot(rc_LGM_CCSM)
 
 # LGM MIROC
-complejo_LGM_MIROC <- raster("./maxent_resultados/Diglossa_baritula_LGM_MIROC_median.asc")
+complejo_LGM_MIROC <- raster("./maxent_results/Diglossa_baritula_LGM_MIROC_median.asc")
 plot(complejo_LGM_MIROC)
 rc_LGM_MIROC<- reclassify(complejo_LGM_MIROC, rclmat)
 par(bg = 'gray') 
 plot(rc_LGM_MIROC)
 
 # MH CCSM
-complejo_MH_CCSM <- raster("./maxent_resultados/Diglossa_baritula_MH_CCSM_median.asc")
+complejo_MH_CCSM <- raster("./maxent_results/Diglossa_baritula_MH_CCSM_median.asc")
 plot(complejo_MH_CCSM)
 rc_MH_CCSM<- reclassify(complejo_MH_CCSM, rclmat)
 par(bg = 'gray') 
 plot(rc_MH_CCSM)
 
 # MH MIROC
-complejo_MH_MIROC <- raster("./maxent_resultados/Diglossa_baritula_MH_MIROC_median.asc")
+complejo_MH_MIROC <- raster("./maxent_results/Diglossa_baritula_MH_MIROC_median.asc")
 plot(complejo_MH_MIROC)
 rc_MH_MIROC<- reclassify(complejo_MH_MIROC, rclmat)
 par(bg = 'gray') 
 plot(rc_MH_MIROC)
 
 # LIG
-complejo_LIG <- raster("./maxent_resultados/Diglossa_baritula_LIG_median.asc")
+complejo_LIG <- raster("./maxent_results/Diglossa_baritula_LIG_median.asc")
 plot(complejo_LIG)
 rc_LIG<- reclassify(complejo_LIG, rclmat)
 par(bg = 'gray') 
@@ -451,7 +452,8 @@ plot(rc_LIG)
 # background
 par(bg = 'white')
 
-distribution <- readOGR(dsn="diglossa_baritula_distribution/dba071dpgw.shp")
+#using shape for geographic distribution (dba071dpgw.shp)
+distribution <- readOGR(dsn="./dba071dpgw.shp")
 plot(distribution)
 
 

@@ -9,13 +9,7 @@ library(ggbiplot)
 library(multcompView)
 library(lsmeans)
 
-
-setwd("C:/Users/alote/OneDrive/Documentos/upload_FigShare/morphology/data/mean_three")
-
-setwd("H:/Mi unidad/correcciones_Dbaritula_PeerJ/Data")
-
-setwd("I:/Mi unidad/correcciones_Dbaritula_PeerJ/Data")
-
+#setwd()
 morpho<-read.csv(file="morphology_mean.csv", header=TRUE)
 
 summary(morpho)

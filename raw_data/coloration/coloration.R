@@ -15,7 +15,7 @@ require(dplyr)
 
 
 
-Subespecie<-getspec("I:/Mi unidad/Proyecto_Dbaritula_Alo/Paper_multidisciplinario/Coloration/measures/recent_figshare/raw_color_data/Subspecies",                    
+Subespecie<-getspec("./Subspecies",                    
                     subdir.names=TRUE, subdir=T,lim = c(300, 700))
 
 
@@ -171,7 +171,7 @@ aggplot(lbelly,by=male.vec, legend = F, lcol=color.sub, shadecol=color.sub, ylim
 
 ################ JND ####################
 
-Subespecie<-getspec("I:/Mi unidad/Proyecto_Dbaritula_Alo/Paper_multidisciplinario/Coloration/measures/recent_figshare/raw_color_data/Subspecies",                    
+Subespecie<-getspec("./Subspecies",                    
                     subdir.names=TRUE, subdir=T,lim = c(300, 700))
 
 

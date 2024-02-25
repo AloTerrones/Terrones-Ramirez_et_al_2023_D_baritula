@@ -178,7 +178,7 @@ ecospat.plot.niche.dyn (montana.grid, parva.grid,
 
 
 #### --- Calculate Niche overlap
-# Estos valores son los que se reportan en el paper
+
 ecospat.niche.overlap (baritula.grid, montana.grid, cor=T) 
 #$D 0.2414861
 #$I 0.3560643

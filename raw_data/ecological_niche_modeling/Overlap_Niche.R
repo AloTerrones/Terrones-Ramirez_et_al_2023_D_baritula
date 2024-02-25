@@ -210,9 +210,12 @@ ecospat.niche.overlap (montana.grid, parva.grid, cor=F)
 
 
 #### ---- Perform niche equivalence test
-eq.test.bm <-ecospat.niche.equivalency.test(baritula.grid , montana.grid, rep=100) 
-eq.test.bp <-ecospat.niche.equivalency.test(baritula.grid , parva.grid, rep=100) 
-eq.test.mp <-ecospat.niche.equivalency.test(montana.grid , parva.grid, rep=100) 
+eq.test.bm <-ecospat.niche.equivalency.test(baritula.grid , montana.grid, rep=100, 
+	overlap.alternative = "lower", ncores = detectCores() - 1) 
+eq.test.bp <-ecospat.niche.equivalency.test(baritula.grid , parva.grid, rep=100,
+	overlap.alternative = "lower", ncores = detectCores() - 1) 
+eq.test.mp <-ecospat.niche.equivalency.test(montana.grid , parva.grid, rep=100, 
+	overlap.alternative = "lower", ncores = detectCores() - 1) 
 
 #### ---- Plot equivalency test
 ecospat.plot.overlap.test(eq.test.bm,"D","Equivalency: baritula vs montana")
@@ -222,13 +225,19 @@ ecospat.plot.overlap.test(eq.test.mp,"D","Equivalency: montana vs parva")
 
 
 #### ---- Perform niche similarity test
-sim.test.bm <-ecospat.niche.similarity.test(baritula.grid , montana.grid, rep=100) 
-sim.test.bp <-ecospat.niche.similarity.test(baritula.grid , parva.grid, rep=100) 
-sim.test.mp <-ecospat.niche.similarity.test(montana.grid , parva.grid, rep=100) 
+sim.test.bm <-ecospat.niche.similarity.test(baritula.grid , montana.grid, rep=100, 
+	overlap.alternative = "lower") 
+sim.test.bp <-ecospat.niche.similarity.test(baritula.grid , parva.grid, rep=100,
+	overlap.alternative = "lower") 
+sim.test.mp <-ecospat.niche.similarity.test(montana.grid , parva.grid, rep=100,
+	overlap.alternative = "lower") 
 
-sim.test.mb <-ecospat.niche.similarity.test(montana.grid , baritula.grid, rep=100) 
-sim.test.pb <-ecospat.niche.similarity.test(parva.grid , baritula.grid, rep=100) 
-sim.test.pm <-ecospat.niche.similarity.test(parva.grid , montana.grid, rep=100) 
+sim.test.mb <-ecospat.niche.similarity.test(montana.grid , baritula.grid, rep=100,
+	overlap.alternative = "lower") 
+sim.test.pb <-ecospat.niche.similarity.test(parva.grid , baritula.grid, rep=100,
+	overlap.alternative = "lower") 
+sim.test.pm <-ecospat.niche.similarity.test(parva.grid , montana.grid, rep=100,
+	overlap.alternative = "lower")
 
 
 #### --- Plot similarity test
